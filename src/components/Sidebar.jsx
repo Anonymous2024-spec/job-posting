@@ -1,51 +1,43 @@
 import { NavLink } from "react-router-dom";
 
-const Sidebar = () => {
+const menuItems = [
+  { icon: "fas fa-home", label: "Dashboard", path: "/" },
+  { icon: "fas fa-search", label: "Job Search", path: "/jobs" },
+  { icon: "fas fa-cog", label: "Settings", path: "/settings" },
+];
+
+function Sidebar() {
   return (
-    <div className="h-full flex flex-col">
-      <div className="bg-gray-900 py-4 px-4">
-        <h2 className="text-xl font-bold text-white">App Name</h2>
-      </div>
-      <nav className="flex flex-col flex-1">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `py-3 px-4 ${
-              isActive
-                ? "bg-gray-900 text-white border-l-4 border-blue-500"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white"
-            }`
-          }
-        >
-          Dashboard
-        </NavLink>
-        <NavLink
-          to="/jobs"
-          className={({ isActive }) =>
-            `py-3 px-4 ${
-              isActive
-                ? "bg-gray-900 text-white border-l-4 border-blue-500"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white"
-            }`
-          }
-        >
-          Jobs
-        </NavLink>
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            `py-3 px-4 ${
-              isActive
-                ? "bg-gray-900 text-white border-l-4 border-blue-500"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white"
-            }`
-          }
-        >
-          Settings
-        </NavLink>
+    <aside className="w-64 bg-white shadow-sm">
+      <nav className="p-4">
+        <ul className="space-y-2">
+          {menuItems.map((item, index) => (
+            <li key={index}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 p-3 rounded-lg ${
+                    isActive
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`
+                }
+              >
+                <i className={`${item.icon} w-5 text-center`}></i>
+                <span>{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 pt-4 border-t border-gray-200">
+          <button className="w-full flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100">
+            <i className="fas fa-sign-out-alt w-5 text-center"></i>
+            <span>Logout</span>
+          </button>
+        </div>
       </nav>
-    </div>
+    </aside>
   );
-};
+}
 
 export default Sidebar;
